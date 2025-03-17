@@ -35,3 +35,4 @@ A Python-based enrichment tool that gathers information about domains, IP addres
 - `uv run glean.py -custom ipaddress:8.8.8.8 -apikey <virus_total_api_key_goes_here>`
 - `uv run glean.py -api '{ "ipaddress": "8.8.8.8" }' -apikey <virus_total_api_key_goes_here>`
 - `uv run glean.py -api '{ "ipaddress": "8.8.8.8", "ipaddress": "1.1.1.1" }' -apikey <virus_total_api_key_goes_here>`
+- `uv run glean.py -file tests/domains_url.txt -apikey <virus_total_api_key_goes_here>`
