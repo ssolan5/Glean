@@ -21,7 +21,7 @@ A Python-based enrichment tool that gathers information about domains, IP addres
 
 - Run the program
   
-  `uv run main.py -h`
+  `uv run glean.py -h`
 
 ## Usage
 
@@ -29,9 +29,9 @@ A Python-based enrichment tool that gathers information about domains, IP addres
 
 ### Example Usage 
 
-- `uv run main.py -file <file_path_goes_here> -apikey <virus_total_api_key_goes_here>`
-- `uv run main.py -url www.google.com -apikey <virus_total_api_key_goes_here>`
-- `uv run main.py -ip 8.8.8.8 -apikey <virus_total_api_key_goes_here>`
-- `uv run main.py -custom ipaddress:8.8.8.8 -apikey <virus_total_api_key_goes_here>`
-- `uv run main.py -api '{ "ipaddress": "8.8.8.8" }' -apikey <virus_total_api_key_goes_here>`
-- `uv run main.py -api '{ "ipaddress": "8.8.8.8", "ipaddress": "1.1.1.1" }' -apikey <virus_total_api_key_goes_here>`
+- `uv run glean.py -file <file_path_goes_here> -apikey <virus_total_api_key_goes_here>`
+- `uv run glean.py -url www.google.com -apikey <virus_total_api_key_goes_here>`
+- `uv run glean.py -ip 8.8.8.8 -apikey <virus_total_api_key_goes_here>`
+- `uv run glean.py -custom ipaddress:8.8.8.8 -apikey <virus_total_api_key_goes_here>`
+- `uv run glean.py -api '{ "ipaddress": "8.8.8.8" }' -apikey <virus_total_api_key_goes_here>`
+- `uv run glean.py -api '{ "ipaddress": "8.8.8.8", "ipaddress": "1.1.1.1" }' -apikey <virus_total_api_key_goes_here>`
