@@ -23,6 +23,10 @@ A Python-based enrichment tool that gathers information about domains, IP addres
   
   `uv run main.py -h`
 
+## Usage
+
+![image](Images/image.png)
+
 ### Example Usage 
 
 - `uv run main.py -file <file_path_goes_here> -apikey <virus_total_api_key_goes_here>`
