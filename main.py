@@ -47,7 +47,6 @@ async def async_queue_whois_lookup(queue, whois_json):
 
             logger.exception("Python-whois API call returned an error: " + type(error))
             
-        queue.task_done()
 
 async def async_vt_get_url(url_id):
 
@@ -92,9 +91,7 @@ async def async_queue_vt_lookup_url(queue, vt_json):
             except Exception as error:
 
                 logger.exception( "VirusTotal request threw an exception : "+ str(error) ) 
-                queue.task_done()
             
-            queue.task_done()
 
 def handle_api(args):
 
