@@ -36,21 +36,22 @@ async def async_queue_whois_lookup(queue, whois_json):
     while not queue.empty():
 
         try:
-            
+ 
             url = await queue.get()
-
+            print("Getting whois for: " + url)
+ 
             whois_data = whois.whois(url)
             whois_json[str(url)] = dict(whois_data)
-            logger.info("Getting whois for: " + url)
+            print("Received whois information for: " + url)
+            logger.info("Received whois information for: " + url)
 
         except Exception as error:
 
             logger.exception("Python-whois API call returned an error: " + type(error))
-            
+ 
 
 async def async_vt_get_url(url_id):
 
-    global apikey
 
     async with aiohttp.ClientSession() as session:
         headers = {
@@ -58,20 +59,19 @@ async def async_vt_get_url(url_id):
                 "x-apikey" : str(apikey) 
         }
         async with session.get("https://www.virustotal.com/api/v3/urls/" + url_id, headers=headers) as response:
-            
+ 
             json_object = await response.json()
             return json_object
 
 
 async def async_queue_vt_lookup_url(queue, vt_json):
 
-    global apikey
 
     async with vt.Client(str(apikey)) as client:
         while not queue.empty():
 
             url = await queue.get()
-            
+ 
             logger.info("Found a url in the queue: " + url)
             print("Found a url in the queue: " + url)
 
@@ -96,7 +96,7 @@ async def async_queue_vt_lookup_url(queue, vt_json):
 def handle_api(args):
 
     # Parsing JSON manually
-        
+ 
     json_string = args.api.strip("{}")
     json_dict = dict()
 
@@ -107,15 +107,15 @@ def handle_api(args):
     else:
 
         json_dict = dict(item.split(": ") for item in json_string.split(", "))
-    
+ 
     logger.error(json_dict)
-    
+ 
     json_list = list()
 
     for keys in json_dict.keys():
 
         value = json_dict.get(keys)
-        
+
         # Trimming whitespace 
         value = value.strip(" ")
 
@@ -217,10 +217,10 @@ def argumentparsing(parser):
 
     # Parsing URLs 
     parser.add_argument('-url', type=str, help="Requires URL ( Google's URL e.g. www.google.com )");
-    
+ 
     # parser.add_argument('--url-list', type=list, help="Requires a list of URLs 
     # ( Multiple URLs space separated e.g www.google.com www.facebook.com www.twitter.com")
-    
+ 
     # Parsing IP addresses
     parser.add_argument('-ip', type=str, help="Requires an ip address ( formatting e.g. 127.0.0.1 ) ")
 
@@ -241,7 +241,7 @@ def argumentparsing(parser):
     # Parsing args and error handling for arguments passed
     # Bootstrapping whoisit for the first time 
     # whoisit.bootstrap(overrides=True)
-    
+ 
     global apikey
 
     if( args.apikey != None ):
@@ -254,15 +254,15 @@ def argumentparsing(parser):
         print("VirusTotal API key missing, cannot do VirusTotal API requests!!") 
         os._exit(os.EX_OK)
 
-       
+
     if( args.url != None ):
 
         return handle_url(args)
-    
+
     elif( args.ip != None ):
 
         return handle_ip(args)
-    
+ 
     elif( args.file != None ):
 
         return handle_file(args)
@@ -388,10 +388,10 @@ def validate(data):
         if len(data_ip) == len(data) :
 
             logger.info("Handling list of all IP addresses here")
-            
+
             # print(data_ip)
             # return data_ip
-            
+ 
             return True
 
         elif len(data_domain) == len(data) :
@@ -448,24 +448,24 @@ async def main():
     logger.info( "Domains to queue : " + str(arguments) )
     
     print("Domains to queue: " + str(arguments) )
-    
+ 
     if arguments == None:
         logging.error("Nothing Queued: Error in arguments passed")
         exit()
 
     if apikey:
         queue_vt = asyncio.Queue()
-    
+
     queue_whois = asyncio.Queue()
 
-   
+
     # Queuing addresses for VirusTotal API - requires url thus
     # we get the URL for the IP address
 
     # arguments_vt = get_hostname(arguments)
     asyncio.create_task(queue_addresses(queue_vt,arguments))
-    
-  
+
+
     # Queuing addreses in either IPv4 or IPv6 or URL format
     # as python-whois API requests can handle both IP and URLs
     # so we pass the arguments as is
@@ -495,7 +495,7 @@ async def main():
 
     # Preparing an output JSON object that is assigned to each 
     # url which will be a key for the output JSON object 
- 
+
     # Optional 
     # url_json["AbuseIPDB"] = {}
     # url_json["GreyNoise"] = {}
@@ -504,7 +504,7 @@ async def main():
     output_json = dict()
 
     for key in whois_json.keys():
-        
+
         url_json = dict()
         url_json["VirusTotal"] = vt_json.get(key)
         url_json["whois"] =  whois_json.get(key)
@@ -522,6 +522,7 @@ async def main():
             file.write(json.dumps(output_json, sort_keys = True, indent = 4, default = str))
     except Exception as error:
         logger.exception("Error creating output file " + str(type(error)))
+        os._exit(os.EX_OK)
 
     print("SUCCESS: Result in file " + output_file)
 
