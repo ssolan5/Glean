@@ -254,6 +254,8 @@ def argumentparsing(parser):
     else:
 
         logger.error("VirusTotal API key missing, cannot do VirusTotal API requests!!")
+        print("VirusTotal API key missing, cannot do VirusTotal API requests!!") 
+        os._exit(os.EX_OK)
 
        
     if( args.url != None ):
