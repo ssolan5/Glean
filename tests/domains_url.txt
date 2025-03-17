@@ -1,0 +1,12 @@
+www.google.com
+google.com
+googleapis.com
+facebook.com
+www.facebook.com
+www.twitter.com
+twitter.com
+
+gmail.com
+github.com
+www.gitlab.com
+
