@@ -252,7 +252,7 @@ def argumentparsing(parser):
 
         logger.error("VirusTotal API key missing, cannot do VirusTotal API requests!!")
         print("VirusTotal API key missing, cannot do VirusTotal API requests!!") 
-        os._exit(os.EX_OK)
+        # os._exit(os.EX_OK)
 
 
     if( args.url != None ):
@@ -453,6 +453,8 @@ async def main():
         logging.error("Nothing Queued: Error in arguments passed")
         exit()
 
+    queue_vt = None
+
     if apikey:
         queue_vt = asyncio.Queue()
 
@@ -485,7 +487,7 @@ async def main():
     print("Working to send requests ....")
 
     for i in range(30) : 
-        if apikey:
+        if apikey and queue_vt:
             worker_tasks.append(asyncio.create_task(async_queue_vt_lookup_url(queue_vt, vt_json)))
         worker_tasks.append(asyncio.create_task(async_queue_whois_lookup(queue_whois, whois_json)))     
 
