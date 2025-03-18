@@ -19,7 +19,7 @@ A Python-based enrichment tool that gathers information about domains, IP addres
 
   `uv add aiohttp asyncio ipaddress python-whois vt-py`
 
-- The tool requires having a VirusTotal API key to work
+- The tool requires having a VirusTotal API key to make VirusTotal API calls
 
     - Sign into your VirusTotal account and retrieve the API key 
     - Pass the API key as a command line argument with the flag  -apikey
