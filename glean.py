@@ -228,7 +228,7 @@ def argumentparsing(parser):
     parser.add_argument('-custom', type=str, help="Requires a key value pair ( formatting e.g. ipaddress:142.250.207.238 )")
 
     # Parsing file input
-    parser.add_argument('-file',type=str, help="Requires a file name or path to file");
+    parser.add_argument('-file',type=str, help="Requires a file name or path to file, with a list of ip addresses, one on each line");
 
     # Parsing API input
     parser.add_argument('-api',type=str,help="Requires a valid JSON object of the form { \"ipaddress\": \"127.0.0.1\", \"ipaddress\": \"8.8.8.8\" }")
