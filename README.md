@@ -2,6 +2,9 @@
 A Python-based enrichment tool that gathers information about domains, IP addresses, and URLs using external intelligence sources like WHOIS, VirusTotal, and other open APIs 
 
 ![monocle](Images/monocle.png)
+
+Please note: No LLMs were used to generate this code, I coded this entirely by myself in vim.
+
   
 ## Set up environment 
 
